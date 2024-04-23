@@ -153,6 +153,12 @@ return [
         */
         'securityDefinitions' => [
             'securitySchemes' => [
+                'bearerAuth' => [ // Unique name of security
+                    'type' => 'http',
+                    'scheme' => 'bearer',
+                    'in' => 'header',
+                    'bearerFormat' => 'JWT',
+                ],
                 /*
                  * Examples of Security schemes
                 */
@@ -200,6 +206,8 @@ return [
                 */
             ],
             'security' => [
+
+                'bearerAuth' => [], // References securityDefinitions > securitySchemes > bearerAuth
                 /*
                  * Examples of Securities
                 */
