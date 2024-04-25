@@ -16,7 +16,7 @@ class AuthController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="username", type="string"),
      *             @OA\Property(property="email", type="string"),
      *             @OA\Property(property="password", type="string"),
      *             @OA\Property(property="password_confirmation", type="string"),
@@ -31,7 +31,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
+            'username' => 'required|string|unique:users',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'email' => 'required|string|email|unique:users',
@@ -39,7 +39,7 @@ class AuthController extends Controller
         ]);
 
         $user = new User([
-            'name' => $request->name,
+            'username' => $request->username,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -64,7 +64,7 @@ class AuthController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="username", type="string"),
      *             @OA\Property(property="password", type="string"),
      *         )
      *     ),
@@ -74,13 +74,13 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        if (!Auth::attempt($request->only('email', 'password'))) {
+        if (!Auth::attempt($request->only('username', 'password'))) {
             return response()->json([
                 'message' => 'Invalid login details'
             ], 401);
         }
 
-        $user = User::where('email', $request['email'])->firstOrFail();
+        $user = User::where('username', $request['username'])->firstOrFail();
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -120,7 +120,7 @@ class AuthController extends Controller
     public function guest()
     {
         return response()->json([
-            'message' => 'Guest page'
+            'error' => 'Not logged in'
         ]);
     }
 }

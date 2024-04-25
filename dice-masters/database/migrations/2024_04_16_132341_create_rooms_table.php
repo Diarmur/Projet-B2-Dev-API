@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
-            $table->string('hostId');
+            $table->string('hostId')->unique();
             $table->timestamps();
             $table->foreign('hostId')->references('id')->on('users')->onDelete('cascade');
         });

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('room_relations', function (Blueprint $table) {
             $table->string('room_id');
-            $table->string('user_id');
+            $table->string('user_id')->unique();
             $table->timestamps();
             $table->primary(['room_id', 'user_id']);
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');

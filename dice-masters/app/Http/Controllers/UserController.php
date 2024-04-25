@@ -27,6 +27,24 @@ class UserController extends Controller
         return response()->json($users,200);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/user/{id}",
+     *     summary="Create a new user",
+     *     tags={"Users"},
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="ID of the user",
+     *          @OA\Schema(type="integer")
+     *      ),
+     *     @OA\Response(response=201, description="User created successfully"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
+
     public function show($id)
     {
         $user = User::find($id);
@@ -34,16 +52,75 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    public function update($id)
-    {
-        $user = User::find($id);
-        $user->name = request('name');
-        $user->email = request('email');
-        $user->password = request('password');
-        $user->save();
+    /**
+     * @OA\Put(
+     *   path="/api/user/{id}",
+     *   summary="Update a user",
+     *   tags={"Users"},
+     *   security={{"bearerAuth":{}}},
+     * @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the user",
+     *     @OA\Schema(type="integer")
+     * ),
+     * @OA\Response(
+    *          response=201,
+    *          description="Data successfully added",
+    *          @OA\JsonContent(
+    *              type="object",
+    *              @OA\Property(property="message", type="string", example="Data successfully added"),
+    *          ),
+    *      ),
+    *      @OA\Response(
+    *          response=422,
+    *          description="Validation error",
+    *          @OA\JsonContent(
+    *              type="object",
+    *              @OA\Property(property="message", type="string", example="The given data was invalid."),
+    *              @OA\Property(property="errors", type="object"),
+    *          ),
+    *      ),
+    *  )
+    */
 
-        return response()->json($user);
+    public function update(Request $request, string $id)
+    {
+        $data = $request->validate([
+            'name' => 'sometimes|string',
+            'first_name' => 'sometimes|string',
+            'last_name' => 'sometimes|string',
+            'email' => 'sometimes|string|email',
+            'password' => 'sometimes|string|confirmed'
+        ]);
+
+        if (isset($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
+
+        $user = User::find($id);
+        $user->update($data);
+        return response()->json($user, 201);
     }
+
+    /**
+     * @OA\Delete(
+     *     path="/api/user/{id}",
+     *     summary="Delete a user",
+     *     tags={"Users"},
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="ID of the user",
+     *          @OA\Schema(type="integer")
+     *      ),
+     *     @OA\Response(response=200, description="User deleted successfully"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
 
     public function destroy($id)
     {
@@ -52,5 +129,5 @@ class UserController extends Controller
 
         return response()->json($user);
     }
-    
+
 }
