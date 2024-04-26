@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CharacterSheet extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'character_name',
         'user_id',
@@ -26,6 +26,7 @@ class CharacterSheet extends Model
         'charisma',
         'hit_points',
         'armor_class',
-        'speed'
+        'speed',
+        'spell_book'
     ];
 }

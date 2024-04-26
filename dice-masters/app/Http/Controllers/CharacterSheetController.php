@@ -47,6 +47,7 @@ class CharacterSheetController extends Controller
      *              @OA\Property(property="hit_points", type="integer",example=20),
      *              @OA\Property(property="armor_class", type="integer",example=15),
      *              @OA\Property(property="speed", type="integer",example=9),
+     *              @OA\Property(property="spell_book", type="string",example="fireball, magic missile, wish")
      *          )
      *      ),
      *      @OA\Response(response=201, description="Character sheet created successfully"),
@@ -72,7 +73,8 @@ class CharacterSheetController extends Controller
             'charisma' => 'required|integer',
             'hit_points' => 'required|integer',
             'armor_class' => 'required|integer',
-            'speed' => 'required|integer'
+            'speed' => 'required|integer',
+            'spell_book' => 'string'
         ]);
 
         $characterSheet = new CharacterSheet([
@@ -92,7 +94,8 @@ class CharacterSheetController extends Controller
             'charisma' => $request->charisma,
             'hit_points' => $request->hit_points,
             'armor_class' => $request->armor_class,
-            'speed' => $request->speed
+            'speed' => $request->speed,
+            'spell_book' => $request->spell_book
         ]);
 
         $characterSheet->save();
@@ -152,9 +155,11 @@ class CharacterSheetController extends Controller
      *  )
      */
 
-    public function userSheets($id) {
-        $characterSheets = CharacterSheet::where('user_id',$id)->get();
+     public function userSheet($id){
+        $characterSheets = CharacterSheet::where('user_id',$id)->select('id','character_name','class')->get();
 
         return $characterSheets;
     }
+
+
 }

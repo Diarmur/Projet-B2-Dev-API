@@ -29,8 +29,8 @@ Route::middleware(['auth:sanctum','web'])->group(function () {
     Route::get('/characterSheets', [CharacterSheetController::class, 'index']);
     Route::post('/characterSheets', [CharacterSheetController::class, 'store']);
     Route::get('/characterSheets/{id}', [CharacterSheetController::class, 'show']);
-    Route::get('/characterSheets/user/{id}', [CharacterSheetController::class, 'userSheets']);
-
+    Route::get('/characterSheets/user/{id}', [CharacterSheetController::class, 'userSheet']);
+    
     Route::get('/battles', [BattleController::class, 'index']);
     Route::post('/battles', [BattleController::class, 'store']);
     Route::get('/battles/{id}', [BattleController::class, 'show']);
