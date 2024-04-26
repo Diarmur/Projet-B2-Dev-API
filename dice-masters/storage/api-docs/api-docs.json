@@ -22,7 +22,8 @@
                                         "type": "string"
                                     },
                                     "email": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "string@mail.com"
                                     },
                                     "password": {
                                         "type": "string"
@@ -124,6 +125,250 @@
                         "description": "Unauthenticated"
                     }
                 }
+            }
+        },
+        "/api/battles": {
+            "post": {
+                "tags": [
+                    "Battles"
+                ],
+                "summary": "Create a new battle",
+                "operationId": "d3171241273c61877913123cc2d8de36",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "turnNB": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "duration": {
+                                        "type": "integer",
+                                        "example": 60
+                                    },
+                                    "users_id": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            1,
+                                            2
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Battle created successfully"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/battles/{id}": {
+            "get": {
+                "tags": [
+                    "Battles"
+                ],
+                "summary": "Get a battle by id",
+                "operationId": "6659c40a61f4c679178473b5ff442116",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the battle",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Battle found"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    },
+                    "404": {
+                        "description": "Battle not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/characterSheets": {
+            "get": {
+                "tags": [
+                    "Character Sheets"
+                ],
+                "summary": "Get all character sheets",
+                "operationId": "9607c7252e374db4c01b367d364544d7",
+                "responses": {
+                    "200": {
+                        "description": "List of all character sheets"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Character Sheets"
+                ],
+                "summary": "Create a new character sheet",
+                "operationId": "c14f66515a59b2e74d642ee8c153614c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "character_name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "race": {
+                                        "type": "string",
+                                        "example": "Human"
+                                    },
+                                    "class": {
+                                        "type": "string",
+                                        "example": "fighter"
+                                    },
+                                    "level": {
+                                        "type": "integer",
+                                        "example": 3
+                                    },
+                                    "background": {
+                                        "type": "string",
+                                        "example": "noble"
+                                    },
+                                    "alignment": {
+                                        "type": "string",
+                                        "example": "neutral"
+                                    },
+                                    "experience": {
+                                        "type": "integer",
+                                        "example": 200
+                                    },
+                                    "strength": {
+                                        "type": "integer",
+                                        "example": 10
+                                    },
+                                    "dexterity": {
+                                        "type": "integer",
+                                        "example": 10
+                                    },
+                                    "constitution": {
+                                        "type": "integer",
+                                        "example": 10
+                                    },
+                                    "intelligence": {
+                                        "type": "integer",
+                                        "example": 10
+                                    },
+                                    "wisdom": {
+                                        "type": "integer",
+                                        "example": 10
+                                    },
+                                    "charisma": {
+                                        "type": "integer",
+                                        "example": 10
+                                    },
+                                    "hit_points": {
+                                        "type": "integer",
+                                        "example": 20
+                                    },
+                                    "armor_class": {
+                                        "type": "integer",
+                                        "example": 15
+                                    },
+                                    "speed": {
+                                        "type": "integer",
+                                        "example": 9
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Character sheet created successfully"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/characterSheets/{id}": {
+            "get": {
+                "tags": [
+                    "Character Sheets"
+                ],
+                "summary": "Get a character sheet by id",
+                "operationId": "a2c75578cebdf10fffb2b64f98f30b61",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the character sheet",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Character sheet found"
+                    },
+                    "404": {
+                        "description": "Character sheet not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/rooms": {
@@ -338,7 +583,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/roomRelations/room/{id}": {
@@ -365,6 +615,39 @@
                     },
                     "400": {
                         "description": "Invalid request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/roomRelations/user/{id}": {
+            "get": {
+                "tags": [
+                    "Rooms"
+                ],
+                "summary": "Get a room by user id",
+                "operationId": "60c55a094ed6997e1d507eefaa63a0a9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Room not found"
                     }
                 },
                 "security": [
@@ -522,6 +805,28 @@
         }
     },
     "components": {
+        "responses": {
+            "401": {
+                "description": "Invalid credentials"
+            },
+            "200": {
+                "description": "List of all character sheets for a user"
+            },
+            "404": {
+                "description": "Character sheets not found"
+            }
+        },
+        "parameters": {
+            "id": {
+                "name": "id",
+                "in": "path",
+                "description": "ID of the user",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
         "securitySchemes": {
             "bearerAuth": {
                 "type": "http",

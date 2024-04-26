@@ -17,7 +17,7 @@ class AuthController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             @OA\Property(property="username", type="string"),
-     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="email", type="string",example="string@mail.com"),
      *             @OA\Property(property="password", type="string"),
      *             @OA\Property(property="password_confirmation", type="string"),
      *             @OA\Property(property="first_name", type="string"),
@@ -89,7 +89,7 @@ class AuthController extends Controller
         return response()->json([
                 'access_token' => $token,
                 'token_type' => 'Bearer',
-        ]);
+        ],200);
     }
 
     /**

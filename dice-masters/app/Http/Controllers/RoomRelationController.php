@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
+use App\Models\Room;
 use App\Models\RoomRelation;
 
 class RoomRelationController extends Controller
@@ -28,6 +30,7 @@ class RoomRelationController extends Controller
      *      path="/api/roomRelations",
      *      summary="Link a player to a room",
      *      tags={"Rooms"},
+     *      security={{"bearerAuth":{}}},
      *      @OA\RequestBody(
      *          required=true,
      *          description="Pass player id and room id",
@@ -89,7 +92,38 @@ public function store(Request $request)
      */
 
     public function showRoom($id){
-        $roomRelations = RoomRelation::where('room_id', $id)->get('user_id');
+        $roomRelations = RoomRelation::where('room_id', $id)->pluck('user_id');
         return response()->json($roomRelations, 200);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/roomRelations/user/{id}",
+     *     summary="Get a room by user id",
+     *     tags={"Rooms"},
+     *     security={{"bearerAuth":{}}},
+     *    @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="User id",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=404, description="Room not found")
+     * )
+     */
+
+    public function show($id)
+    {
+        $roomRelation = RoomRelation::where('user_id', $id)->first();
+        if ($roomRelation) {
+            $room = Room::find($roomRelation->room_id);
+            return response()->json($room, 200);
+        } else {
+            return response()->json(['message' => 'Room not found'], 404);
+        }
     }
 }
