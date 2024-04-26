@@ -1,0 +1,20 @@
+swagger: '3.0'
+info:
+  title: Your API
+  version: 1.0.0
+securityDefinitions:
+  BearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: Enter your bearer token in the format `<token>`
+paths:
+  /api/me:
+    post:
+      summary: Your endpoint summary
+      description: Your endpoint description
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          description: Successful response
