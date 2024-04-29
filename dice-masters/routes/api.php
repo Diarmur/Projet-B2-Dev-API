@@ -30,6 +30,7 @@ Route::middleware(['auth:sanctum','web'])->group(function () {
     Route::post('/characterSheets', [CharacterSheetController::class, 'store']);
     Route::get('/characterSheets/{id}', [CharacterSheetController::class, 'show']);
     Route::get('/characterSheets/user/{id}', [CharacterSheetController::class, 'userSheet']);
+    Route::put('/characterSheets/{id}', [CharacterSheetController::class, 'update']);
 
     Route::get('/battles', [BattleController::class, 'index']);
     Route::post('/battles', [BattleController::class, 'store']);

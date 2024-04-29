@@ -164,5 +164,16 @@ class CharacterSheetController extends Controller
         return $characterSheets;
     }
 
+    public function update(Request $request, $id) {
+        $characterSheet = CharacterSheet::find($id);
 
+        if ($characterSheet) {
+            $characterSheet->update($request->all());
+            return response()->json($characterSheet,200);
+        } else {
+            return response()->json([
+                'message' => 'Character sheet not found'
+            ],404);
+        }
+    }
 }
