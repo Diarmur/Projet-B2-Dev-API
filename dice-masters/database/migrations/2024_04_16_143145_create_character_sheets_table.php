@@ -31,6 +31,7 @@ return new class extends Migration
             $table->unsignedInteger('armor_class');
             $table->unsignedInteger('speed');
             $table->string('spell_book');
+            $table->string('weapon');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

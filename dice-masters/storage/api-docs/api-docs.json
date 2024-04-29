@@ -30,12 +30,6 @@
                                     },
                                     "password_confirmation": {
                                         "type": "string"
-                                    },
-                                    "first_name": {
-                                        "type": "string"
-                                    },
-                                    "last_name": {
-                                        "type": "string"
                                     }
                                 },
                                 "type": "object"
@@ -316,6 +310,14 @@
                                     "speed": {
                                         "type": "integer",
                                         "example": 9
+                                    },
+                                    "spell_book": {
+                                        "type": "string",
+                                        "example": "fireball,magic_missile,wish"
+                                    },
+                                    "weapon": {
+                                        "type": "string",
+                                        "example": "slashing:1d6"
                                     }
                                 },
                                 "type": "object"
