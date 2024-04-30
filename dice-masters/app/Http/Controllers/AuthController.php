@@ -20,8 +20,6 @@ class AuthController extends Controller
      *             @OA\Property(property="email", type="string",example="string@mail.com"),
      *             @OA\Property(property="password", type="string"),
      *             @OA\Property(property="password_confirmation", type="string"),
-     *             @OA\Property(property="first_name", type="string"),
-     *             @OA\Property(property="last_name", type="string"),
      *         )
      *     ),
      *     @OA\Response(response=201, description="User created successfully"),
@@ -32,16 +30,12 @@ class AuthController extends Controller
     {
         $request->validate([
             'username' => 'required|string|unique:users',
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed'
         ]);
 
         $user = new User([
             'username' => $request->username,
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
@@ -93,7 +87,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @OA\Post(
+     * @OA\Get(
      *     path="/api/me",
      *     summary="Get the authenticated user",
      *     tags={"Authentication"},

@@ -89,8 +89,6 @@ class UserController extends Controller
     {
         $data = $request->validate([
             'name' => 'sometimes|string',
-            'first_name' => 'sometimes|string',
-            'last_name' => 'sometimes|string',
             'email' => 'sometimes|string|email',
             'password' => 'sometimes|string|confirmed'
         ]);

@@ -30,7 +30,8 @@ Route::middleware(['auth:sanctum','web'])->group(function () {
     Route::post('/characterSheets', [CharacterSheetController::class, 'store']);
     Route::get('/characterSheets/{id}', [CharacterSheetController::class, 'show']);
     Route::get('/characterSheets/user/{id}', [CharacterSheetController::class, 'userSheet']);
-    
+    Route::put('/characterSheets/{id}', [CharacterSheetController::class, 'update']);
+
     Route::get('/battles', [BattleController::class, 'index']);
     Route::post('/battles', [BattleController::class, 'store']);
     Route::get('/battles/{id}', [BattleController::class, 'show']);
@@ -42,5 +43,5 @@ Route::middleware(['auth:sanctum','web'])->group(function () {
 
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
+Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
 Route::get('/guest', [AuthController::class, 'guest'])->name('guest');

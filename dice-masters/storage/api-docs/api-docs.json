@@ -30,12 +30,6 @@
                                     },
                                     "password_confirmation": {
                                         "type": "string"
-                                    },
-                                    "first_name": {
-                                        "type": "string"
-                                    },
-                                    "last_name": {
-                                        "type": "string"
                                     }
                                 },
                                 "type": "object"
@@ -89,12 +83,12 @@
             }
         },
         "/api/me": {
-            "post": {
+            "get": {
                 "tags": [
                     "Authentication"
                 ],
                 "summary": "Get the authenticated user",
-                "operationId": "3fc3f2f762fb3c5ecf211fcb0d4f81ff",
+                "operationId": "9d9bc556f927575aa492a88c28fe5908",
                 "responses": {
                     "200": {
                         "description": "User retrieved successfully"
@@ -316,6 +310,14 @@
                                     "speed": {
                                         "type": "integer",
                                         "example": 9
+                                    },
+                                    "spell_book": {
+                                        "type": "string",
+                                        "example": "fireball,magic_missile,wish"
+                                    },
+                                    "weapon": {
+                                        "type": "string",
+                                        "example": "slashing:1d6"
                                     }
                                 },
                                 "type": "object"

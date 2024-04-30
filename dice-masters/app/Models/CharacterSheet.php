@@ -27,6 +27,7 @@ class CharacterSheet extends Model
         'hit_points',
         'armor_class',
         'speed',
-        'spell_book'
+        'spell_book',
+        'weapon'
     ];
 }

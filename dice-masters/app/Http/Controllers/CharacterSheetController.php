@@ -47,7 +47,8 @@ class CharacterSheetController extends Controller
      *              @OA\Property(property="hit_points", type="integer",example=20),
      *              @OA\Property(property="armor_class", type="integer",example=15),
      *              @OA\Property(property="speed", type="integer",example=9),
-     *              @OA\Property(property="spell_book", type="string",example="fireball, magic missile, wish")
+     *              @OA\Property(property="spell_book", type="string",example="fireball,magic_missile,wish"),
+     *              @OA\Property(property="weapon", type="string",example="slashing:1d6")
      *          )
      *      ),
      *      @OA\Response(response=201, description="Character sheet created successfully"),
@@ -74,7 +75,8 @@ class CharacterSheetController extends Controller
             'hit_points' => 'required|integer',
             'armor_class' => 'required|integer',
             'speed' => 'required|integer',
-            'spell_book' => 'string'
+            'spell_book' => 'string',
+            'weapon' => 'string'
         ]);
 
         $characterSheet = new CharacterSheet([
@@ -95,7 +97,8 @@ class CharacterSheetController extends Controller
             'hit_points' => $request->hit_points,
             'armor_class' => $request->armor_class,
             'speed' => $request->speed,
-            'spell_book' => $request->spell_book
+            'spell_book' => $request->spell_book,
+            'weapon' => $request->weapon
         ]);
 
         $characterSheet->save();
@@ -156,10 +159,21 @@ class CharacterSheetController extends Controller
      */
 
      public function userSheet($id){
-        $characterSheets = CharacterSheet::where('user_id',$id)->select('id','character_name','class')->get();
+        $characterSheets = CharacterSheet::where('user_id',$id)->select('id','character_name','class','level')->get();
 
         return $characterSheets;
     }
 
+    public function update(Request $request, $id) {
+        $characterSheet = CharacterSheet::find($id);
 
+        if ($characterSheet) {
+            $characterSheet->update($request->all());
+            return response()->json($characterSheet,200);
+        } else {
+            return response()->json([
+                'message' => 'Character sheet not found'
+            ],404);
+        }
+    }
 }
